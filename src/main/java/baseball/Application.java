@@ -1,5 +1,6 @@
 package baseball;
 
+import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.*;
@@ -9,26 +10,33 @@ public class Application {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("숫자 야구 게임을 시작합니다.");
-        List<Integer> computer = new ArrayList<>();
-        while (computer.size() < 3) {
-            int randomNumber = Randoms.pickNumberInRange(1, 9);
-            if (!computer.contains(randomNumber)) {
-                computer.add(randomNumber);
+        boolean playGame = true;
+
+        while (playGame) {
+            List<Integer> computer = new ArrayList<>();
+            while (computer.size() < 3) {
+                int randomNumber = Randoms.pickNumberInRange(1, 9);
+                if (!computer.contains(randomNumber)) {
+                    computer.add(randomNumber);
+                }
             }
+            playGame = playBaseBallGame(computer);
         }
+    }
+    private static boolean playBaseBallGame(List<Integer> computer) {
+        return restartGame();
+    }
 
-        while(true) {
-            System.out.print("숫자를 입력해주세요 : ");
-            int num = scanner.nextInt();
+    private static boolean restartGame() {
+        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        String input = Console.readLine();
 
-            if (num < 100 || num > 999) {
-                throw new IllegalArgumentException("3자리 숫자를 입력해야 합니다.");
-            }
-
-            List<Integer> user = new ArrayList<>();
-            user.add(num / 100);
-            user.add((num / 10) % 10);
-            user.add(num % 10);
+        if ("1".equals(input)) {
+            return true;
+        } else if ("2".equals(input)) {
+            return false;
+        } else {
+            throw new IllegalArgumentException("잘못된 입력입니다. 1 또는 2를 입력해야 합니다.");
         }
     }
 }
