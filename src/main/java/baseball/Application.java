@@ -16,6 +16,20 @@ public class Application {
                 computer.add(randomNumber);
             }
         }
+
+        while(true) {
+            System.out.print("숫자를 입력해주세요 : ");
+            int num = scanner.nextInt();
+
+            if (num < 100 || num > 999) {
+                throw new IllegalArgumentException("3자리 숫자를 입력해야 합니다.");
+            }
+
+            List<Integer> user = new ArrayList<>();
+            user.add(num / 100);
+            user.add((num / 10) % 10);
+            user.add(num % 10);
+        }
     }
 }
 
